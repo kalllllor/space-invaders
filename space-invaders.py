@@ -36,9 +36,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    if player1.shot(keys_press):
-        bullets.append(player1.shot(keys_press))
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                bullets.append(player1.shot())
 
     # if bullet1.bulletY <= -16:
     #     bullet1.bullet_flag = False
@@ -56,15 +56,15 @@ while running:
             alien.update(screen)
 
     for item in bullets:
-        item.update(screen)
+        if item.bullet_flag:
+            item.update(screen)
+        if item.bulletY <= -16:
+            item.bullet_flag = False
         for alien in aliens:
-            if item.bulletY <= -16:
-                bullets.remove(item)
+            if collision(alien.alienX, alien.alienY, item.bulletX, item.bulletY):
+                alien.alien_hit = True
+                item.bullet_flag = False
+        if not item.bullet_flag:
+            bullets.remove(item)
 
-            for alien in aliens:
-                if collision(alien.alienX, alien.alienY, item.bulletX, item.bulletY):
-                    alien.alien_hit = True
-                    bullets.remove(item)
-
-    print(bullets)
     pygame.display.update()

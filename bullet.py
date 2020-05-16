@@ -7,9 +7,9 @@ class Bullet:
         self.bulletX = x
         self.bulletY = y
         self.bulletY_change = 1
-        self.bullet_flag = False
+        self.bullet_flag = True
         self.bullet_direction = direction
 
     def update(self, screen):
-        screen.blit(self.bullet_icon, (self.bulletX + 24, self.bulletY - 15))
+        screen.blit(self.bullet_icon, (self.bulletX, self.bulletY))
         self.bulletY -= self.bulletY_change

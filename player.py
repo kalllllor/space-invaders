@@ -6,7 +6,7 @@ class Player:
     def __init__(self):
         self.player_icon = pygame.image.load("./Assets/player.png")
         self.playerX = 468
-        self.playerY = 268
+        self.playerY = 500
         self.playerX_change = 0
         self.playerY_change = 0
 
@@ -24,9 +24,6 @@ class Player:
         elif self.playerX <= 0:
             self.playerX = 0
 
-    def shot(self, keys):
-        if keys[pygame.K_SPACE]:
-            bullet1 = bullet.Bullet(self.playerX + 24, self.playerY - 15, True)
-            return bullet1
-        else:
-            return None
+    def shot(self):
+        bullet1 = bullet.Bullet(self.playerX + 24, self.playerY - 15, True)
+        return bullet1
