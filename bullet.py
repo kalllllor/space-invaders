@@ -12,3 +12,4 @@ class Bullet:
 
     def update(self, screen):
         screen.blit(self.bullet_icon, (self.bulletX + 24, self.bulletY - 15))
+        self.bulletY -= self.bulletY_change

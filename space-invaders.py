@@ -10,6 +10,7 @@ screen = pygame.display.set_mode((1000, 600))
 pygame.display.set_caption("SPACE INVADERS !!!ONE")
 pygame.display.set_icon(pygame.image.load("./Assets/icon.png"))
 
+bullets = []
 number_of_enemies = 6
 start = 100
 
@@ -35,18 +36,13 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                if not bullet1.bullet_flag:
-                    bullet1.bullet_flag = True
-                    bullet1.bulletX = player1.playerX
 
-    if bullet1.bullet_flag:
-        bullet1.update(screen)
-        bullet1.bulletY -= bullet1.bulletY_change
-    if bullet1.bulletY <= -16:
-        bullet1.bullet_flag = False
-        bullet1.bulletY = 268
+    if player1.shot(keys_press):
+        bullets.append(player1.shot(keys_press))
+
+    # if bullet1.bulletY <= -16:
+    #     bullet1.bullet_flag = False
+    #     bullet1.bulletY = 268
 
     for alien in aliens:
         if collision(alien.alienX, alien.alienY, bullet1.bulletX, bullet1.bulletY):
@@ -59,4 +55,14 @@ while running:
         if not alien.alien_hit:
             alien.update(screen)
 
+    for item in bullets:
+        item.update(screen)
+        for alien in aliens:
+            if item.bulletY <= -16:
+                del item
+            for alien in aliens:
+                if collision(alien.alienX, alien.alienY, item.bulletX, item.bulletY):
+                    alien.alien_hit = True
+
+    print(bullets)
     pygame.display.update()

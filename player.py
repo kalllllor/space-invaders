@@ -24,7 +24,9 @@ class Player:
         elif self.playerX <= 0:
             self.playerX = 0
 
-    # def shot(self, keys):
-    #     if keys[pygame.K_SPACE]:
-    #         bullet1 = bullet.Bullet(self.playerX + 24, self.playerY - 15)
-    #     return bullet1
+     def shot(self, keys):
+         if keys[pygame.K_SPACE]:
+             bullet1 = bullet.Bullet(self.playerX + 24, self.playerY - 15)
+            return bullet1
+         else:
+            return None
