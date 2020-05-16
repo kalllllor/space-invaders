@@ -6,7 +6,7 @@ class Bullet:
         self.bullet_icon = pygame.image.load("./Assets/bullet.png")
         self.bulletX = x
         self.bulletY = y
-        self.bulletY_change = 1
+        self.bulletY_change = 10
         self.bullet_flag = True
         self.bullet_direction = direction
 

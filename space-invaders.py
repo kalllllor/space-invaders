@@ -9,7 +9,7 @@ pygame.init()
 screen = pygame.display.set_mode((1000, 600))
 pygame.display.set_caption("SPACE INVADERS !!!ONE")
 pygame.display.set_icon(pygame.image.load("./Assets/icon.png"))
-
+clock = pygame.time.Clock()
 bullets = []
 number_of_enemies = 6
 start = 100
@@ -51,9 +51,12 @@ while running:
     #         bullet1.bulletY = 268
 
     player1.update(screen, keys_press)
+
     for alien in aliens:
         if not alien.alien_hit:
             alien.update(screen)
+        else:
+            aliens.remove(alien)
 
     for item in bullets:
         if item.bullet_flag:
@@ -68,3 +71,4 @@ while running:
             bullets.remove(item)
 
     pygame.display.update()
+    clock.tick(60)
