@@ -1,46 +1,18 @@
 import pygame
 import math
+import player
+import alien
+import bullet
 pygame.init()
-
 
 screen = pygame.display.set_mode((1000, 600))
 pygame.display.set_caption("SPACE INVADERS !!!ONE")
 pygame.display.set_icon(pygame.image.load("./Assets/icon.png"))
 
-# Player
-player_icon = pygame.image.load("./Assets/player.png")
-playerX = 468
-playerY = 268
-playerX_change = 0
-playerY_change = 0
 
-# Alien
-alien_icon = pygame.image.load("./Assets/alien.png")
-enemyX = 468
-enemyY = 50
-enemyX_change = 0.1
-enemy_hit = False
-
-# Bullet
-bullet_icon = pygame.image.load("./Assets/bullet.png")
-bulletX = 0
-bulletY = 268
-bulletY_change = 1
-bullet_flag = False
-
-
-def player(x, y):
-    screen.blit(player_icon, (x, y))
-
-
-def alien(x, y):
-    screen.blit(alien_icon, (x, y))
-
-
-def bullet(x, y):
-    global bullet_flag
-    bullet_flag = True
-    screen.blit(bullet_icon, (x + 24, y - 15))
+player1 = player.Player()
+alien1 = alien.Alien()
+bullet1 = bullet.Bullet()
 
 
 def collision(enemyX, enemyY, bulletX, bulletY):
@@ -52,49 +24,48 @@ def collision(enemyX, enemyY, bulletX, bulletY):
 
 running = True
 while running:
-
     screen.fill((255, 255, 255))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                playerX_change = -1
+                player1.playerX_change = -1
             if event.key == pygame.K_RIGHT:
-                playerX_change = 1
+                player1.playerX_change = 1
             if event.key == pygame.K_SPACE:
-                if not bullet_flag:
-                    bullet_flag = True
-                    bulletX = playerX
+                if not bullet1.bullet_flag:
+                    bullet1.bullet_flag = True
+                    bullet1.bulletX = player1.playerX
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                playerX_change = 0
+                player1.playerX_change = 0
 
-    playerX += playerX_change
-    if playerX >= 936:
-        playerX = 936
-    elif playerX <= 0:
-        playerX = 0
+    player1.playerX += player1.playerX_change
+    if player1.playerX >= 936:
+        player1.playerX = 936
+    elif player1.playerX <= 0:
+        player1.playerX = 0
 
-    enemyX += enemyX_change
-    if enemyX >= 936:
-        enemyX_change = -0.1
-    elif enemyX <= 0:
-        enemyX_change = 0.1
+    alien1.alienX += alien1.alienX_change
+    if alien1.alienX >= 936:
+        alien1.alienX_change = -0.1
+    elif alien1.alienX <= 0:
+        alien1.alienX_change = 0.1
 
-    if bullet_flag:
-        bullet(bulletX, bulletY)
-        bulletY -= bulletY_change
-    if bulletY <= -16:
-        bullet_flag = False
-        bulletY = 268
-    player(playerX, playerY)
+    if bullet1.bullet_flag:
+        bullet1.update(screen)
+        bullet1.bulletY -= bullet1.bulletY_change
+    if bullet1.bulletY <= -16:
+        bullet1.bullet_flag = False
+        bullet1.bulletY = 268
+    player1.update(screen)
 
-    if collision(enemyX+32, enemyY-32, bulletX, bulletY):
-        enemy_hit = True
-        bullet_flag = False
+    if collision(alien1.alienX, alien1.alienY, bullet1.bulletX, bullet1.bulletY):
+        alien1.alien_hit = True
+        bullet1.bullet_flag = False
 
-    if not enemy_hit:
-        alien(enemyX, enemyY)
+    if not alien1.alien_hit:
+        alien1.update(screen)
 
     pygame.display.update()
