@@ -44,11 +44,11 @@ while running:
     #     bullet1.bullet_flag = False
     #     bullet1.bulletY = 268
 
-    for alien in aliens:
-        if collision(alien.alienX, alien.alienY, bullet1.bulletX, bullet1.bulletY):
-            alien.alien_hit = True
-            bullet1.bullet_flag = False
-            bullet1.bulletY = 268
+    # for alien in aliens:
+    #     if collision(alien.alienX, alien.alienY, bullet1.bulletX, bullet1.bulletY):
+    #         alien.alien_hit = True
+    #         bullet1.bullet_flag = False
+    #         bullet1.bulletY = 268
 
     player1.update(screen, keys_press)
     for alien in aliens:
@@ -59,10 +59,12 @@ while running:
         item.update(screen)
         for alien in aliens:
             if item.bulletY <= -16:
-                del item
+                bullets.remove(item)
+
             for alien in aliens:
                 if collision(alien.alienX, alien.alienY, item.bulletX, item.bulletY):
                     alien.alien_hit = True
+                    bullets.remove(item)
 
     print(bullets)
     pygame.display.update()
