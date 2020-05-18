@@ -6,7 +6,7 @@ class Alien:
         self.alien_icon = pygame.image.load("./Assets/alien.png")
         self.alienX = x
         self.alienY = y
-        self.alienX_change = 1
+        self.alienX_change = 2
         self.alienY_change = 20
         self.alien_hit = False
 
@@ -14,9 +14,9 @@ class Alien:
         screen.blit(self.alien_icon, (self.alienX, self.alienY))
 
         if self.alienX >= 936:
-            self.alienX_change = -1
+            self.alienX_change = -2
             self.alienY += self.alienY_change
         elif self.alienX <= 0:
-            self.alienX_change = 1
+            self.alienX_change = 2
             self.alienY += self.alienY_change
         self.alienX += self.alienX_change

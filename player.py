@@ -9,13 +9,14 @@ class Player:
         self.playerY = 500
         self.playerX_change = 0
         self.playerY_change = 0
+        self.health_point = 100
 
     def update(self, screen, keys):
         screen.blit(self.player_icon, (self.playerX, self.playerY))
         if keys[pygame.K_LEFT]:
-            self.playerX_change = -1
+            self.playerX_change = -5
         elif keys[pygame.K_RIGHT]:
-            self.playerX_change = 1
+            self.playerX_change = 5
         else:
             self.playerX_change = 0
         self.playerX += self.playerX_change

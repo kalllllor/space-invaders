@@ -12,4 +12,7 @@ class Bullet:
 
     def update(self, screen):
         screen.blit(self.bullet_icon, (self.bulletX, self.bulletY))
-        self.bulletY -= self.bulletY_change
+        if self.bullet_direction:
+            self.bulletY -= self.bulletY_change
+        else:
+            self.bulletY += self.bulletY_change
