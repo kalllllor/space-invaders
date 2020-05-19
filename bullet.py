@@ -3,7 +3,10 @@ import pygame
 
 class Bullet:
     def __init__(self, x, y, direction):
-        self.bullet_icon = pygame.image.load("./Assets/bullet.png")
+        if direction:
+            self.bullet_icon = pygame.image.load("./Assets/bullet.png")
+        else:
+            self.bullet_icon = pygame.image.load("./Assets/alien_bullet.png")
         self.bulletX = x
         self.bulletY = y
         self.bulletY_change = 10
